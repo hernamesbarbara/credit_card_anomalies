@@ -119,17 +119,36 @@ def facet_by(frame, tobin="field5", facet="anomaly"):
 			ax.set_title(title_format %(subset[tobin].name, subset[facet].name, subset[facet].unique()[0]),
 				fontsize=14, color='black')
 
-		n, bins, patches = ax.hist(subset[tobin], bins=np.arange(0, frame[tobin].max(), 1), 
-			normed=True, facecolor='g', alpha=0.75)
+		n, bins, patches = ax.hist(subset[tobin], normed=True, facecolor='g', alpha=0.75)
 		
 		ax.set_xlabel(subset[tobin].name, fontsize=12, color='blue')
 		ax.set_ylabel('Probability', fontsize=12, color='blue')
 		ax.grid(True)
 	
-	fig.suptitle("Histograms of field5", fontsize=16, color='black')
+	fig.suptitle("Distribution of %s" % subset[tobin].name, fontsize=16, color='black')
 
 	return
 
+
+print "When amount != total...."
+print df[df.amount != df.total].groupby("anomaly").size()
+print
+
+for col in number_cols:
+    facet_by(df, tobin=col)
+
+print "Anomalies when field3 is less than 10,000"
+print df[df.field3 < -10000].groupby("anomaly").size()
+print 100 * (119./1000)
+print
+print "Anomalies when field3 is greater than 10,000"
+print df[df.field3 > -10000].groupby("anomaly").size()
+print 100 * (1975./91587)
+
+ols_model = ols('amount ~  total', df=df).fit()
+print ols_model.summary()
+print
+plt.scatter(x=df.total, y=ols_model.fittedvalues)
 
 
 
