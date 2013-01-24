@@ -5,6 +5,7 @@ import matplotlib.mlab as mlab
 from credit_card_data import read_data
 
 pd.set_printoptions(max_rows=25, max_columns=21)
+cm = plt.get_cmap('gist_rainbow')
 
 df = read_data()
 
@@ -87,5 +88,5 @@ plot_combos = [ (make_scatter,df,( ("field3", "amount"), "anomaly")), ]
 for func, frame, args in plot_combos:
     call(frame, func, *args)
 
-
+[ call(df, facet_by, *plot) for plot in plot_combos ]
 
