@@ -39,12 +39,6 @@ offset = int(X.shape[0] * 0.9)
 X_train, y_train = X[:offset], y[:offset]
 X_test, y_test = X[offset:], y[offset:]
 
-params = {'n_estimators': 500,
-         'max_depth': 4,
-         'min_samples_split': 1,
-         'learn_rate': 0.01,
-         'loss': 'ls'}
-
 ########################################################################
 clf = ensemble.GradientBoostingClassifier().fit(X_train, y_train)
 predicted = clf.predict(X_test)
