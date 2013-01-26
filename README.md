@@ -1,1 +1,1 @@
-CLassifying e-commerce credit card payment anomalies using an open source dataset.
+Classifying e-commerce credit card payment anomalies using an open source dataset.
