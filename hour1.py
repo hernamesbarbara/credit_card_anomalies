@@ -35,11 +35,9 @@ def make_hist(frame, to_bin, norm=False):
 	plt.show()
 	plt.clf()
 
-
 df = read_data()
 pos = df[df.anomaly]
 neg = df[df.anomaly == False]
-
 
 hour1 = df.groupby(['anomaly', 'hour1']).size().reset_index(name='freq')
 most_anoms = hour1.groupby(['anomaly'])['freq'].idxmax()
@@ -55,6 +53,9 @@ print "Most Common Hour for Regular Payment Behavior: %d:00" % most_anoms[False]
 print "Most Common Hour for Anomalous Behavior: %d:00" % most_anoms[True]
 print
 df.groupby(['anomaly']).apply(make_hist, to_bin="hour2", norm=True)
+
+df['hour_diff'] = df.hour1 - df.hour2
+df.groupby(['anomaly']).apply(make_hist, "hour_diff", norm=True)
 
 # make pmfs for hour of the day
 # for both anomalies and normal credit card transactions
