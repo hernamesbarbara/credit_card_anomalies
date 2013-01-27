@@ -66,17 +66,6 @@ plt.legend(loc='upper right')
 plt.xlabel('Boosting Iterations')
 plt.ylabel('Deviance')
 
-cm  = confusion_matrix(y_test, predicted)
-print "Confusion Matrix"
-print
-for i, row in enumerate(cm):
-    print str(classes.levels[i]).ljust(5),str(row[0]).ljust(5), 
-    print str(row[1])
-print
-
-cr  = classification_report(y_test, predicted)
-print cr
-
 feature_importance = clf.feature_importances_
 # make importances relative to max importance
 feature_importance = 100.0 * (feature_importance / feature_importance.max())
@@ -88,4 +77,17 @@ plt.yticks(pos, feature_names[sorted_idx])
 plt.xlabel('Relative Importance')
 plt.title('Variable Importance')
 plt.show()
+
+cm  = confusion_matrix(y_test, predicted)
+print "Confusion Matrix"
+print
+for i, row in enumerate(cm):
+    print str(classes.levels[i]).ljust(5),str(row[0]).ljust(5), 
+    print str(row[1])
+print
+
+cr  = classification_report(y_test, predicted)
+print cr
+
+
 
